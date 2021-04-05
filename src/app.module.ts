@@ -4,6 +4,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { RouteModule } from './route/route.module';
+import { JourneyModule } from './journey/journey.module';
+import { UserjourneyModule } from './userjourney/userjourney.module';
+import { UserrouteModule } from './userroute/userroute.module';
 
 @Module({
     imports: [
@@ -19,7 +22,10 @@ import { RouteModule } from './route/route.module';
             synchronize: true,
         }),
         UserModule,
-        RouteModule
+        RouteModule,
+        JourneyModule,
+        UserjourneyModule,
+        UserrouteModule
         ],
     controllers: [AppController],
     providers: [AppService],
