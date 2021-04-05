@@ -1,4 +1,4 @@
-export enum UserVehicleType{
+export enum VehicleType{
     'Car',
     'Motorcycle',
     'Bicycle'

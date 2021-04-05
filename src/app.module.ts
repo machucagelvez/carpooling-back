@@ -7,6 +7,7 @@ import { RouteModule } from './route/route.module';
 import { JourneyModule } from './journey/journey.module';
 import { UserjourneyModule } from './userjourney/userjourney.module';
 import { UserrouteModule } from './userroute/userroute.module';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @Module({
     imports: [
@@ -25,7 +26,8 @@ import { UserrouteModule } from './userroute/userroute.module';
         RouteModule,
         JourneyModule,
         UserjourneyModule,
-        UserrouteModule
+        UserrouteModule,
+        VehicleModule
         ],
     controllers: [AppController],
     providers: [AppService],

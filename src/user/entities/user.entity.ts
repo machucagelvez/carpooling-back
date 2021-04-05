@@ -18,17 +18,11 @@ export class User{
     @Column({type: "varchar", length: 20})
     phone: string;
 
-    @Column({type: "varchar", length: 20})
-    vehicleType: string;
-
     @Column({type: "bool", default: true})
     userType: boolean;
 
     @Column({type: "varchar", length: 100})
     waLink: string;
-
-    @Column({type: "varchar", length: 10})
-    plate: string;
 
     @Column({type: "bool"})
     rol: boolean;
