@@ -17,25 +17,25 @@ export class RouteService {
         return await this.routeRepository.find()
     }
 
-    async findOne(id: number) {
+    async getOne(id: number) {
         const route = await this.routeRepository.findOne(id)
         if (!route) throw new NotFoundException('La ruta buscada no existe')
         return route
     }
 
     async create(dto: CreateRouteDto) {
-        const route = await this.routeRepository.create(dto as any)
+        const route = await this.routeRepository.create(dto)
         return await this.routeRepository.save(route)
     }
 
     async update(id: number, dto: EditRouteDto) {
-        const route = await this.routeRepository.findOne(id)
-        if(!route) throw new NotFoundException('La ruta no existe')
+        const route = await this.getOne(id)
         const editedRoute = Object.assign(route, dto)
-        return await this.routeRepository.save(route)
+        return await this.routeRepository.save(editedRoute)
     }
 
-    delete(id: number) {
-        return this.routeRepository.delete(id)
+    async delete(id: number) {
+        await this.getOne(id)
+        return await this.routeRepository.delete(id)
     }
 }

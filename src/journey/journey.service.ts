@@ -17,25 +17,25 @@ export class JourneyService {
         return await this.journeyRepository.find()
     }
 
-    async findOne(id: number) {
+    async getOne(id: number) {
         const journey = await this.journeyRepository.findOne(id)
         if (!journey) throw new NotFoundException('El viaje buscado no existe')
         return journey
     }
 
     async create(dto: CreateJourneyDto) {
-        const journey = await this.journeyRepository.create(dto as any)
+        const journey = await this.journeyRepository.create(dto)
         return await this.journeyRepository.save(journey)
     }
 
     async update(id: number, dto: EditJourneyDto) {
-        const journey = await this.journeyRepository.findOne(id)
-        if(!journey) throw new NotFoundException('El viaje no existe')
+        const journey = await this.getOne(id)
         const editedJourney = Object.assign(journey, dto)
-        return await this.journeyRepository.save(journey)
+        return await this.journeyRepository.save(editedJourney)
     }
 
-    delete(id: number) {
-        return this.journeyRepository.delete(id)
+    async delete(id: number) {
+        await this.getOne(id)
+        return await this.journeyRepository.delete(id)
     }
 }

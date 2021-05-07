@@ -11,29 +11,30 @@ export class RouteController {
     @Get()
     async findAll() {
         const data = await this.routeService.findAll()
-        return {
-            message: 'Rutas mostradas',
-            data
-        }
+        return { data }
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
-        return this.routeService.findOne(id)
+    async getOne(@Param('id', ParseIntPipe) id: number) {
+        const data = await this.routeService.getOne(id)
+        return { data }
     }
 
     @Post()
-    create(@Body() dto: CreateRouteDto) {
-        return this.routeService.create(dto)
+    async create(@Body() dto: CreateRouteDto) {
+        const data = await this.routeService.create(dto)
+        return { message: 'Ruta creada', data}
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() dto: EditRouteDto) {
-        return this.routeService.update(id, dto)
+    async update(@Param('id') id: number, @Body() dto: EditRouteDto) {
+        const data = await this.routeService.update(id, dto)
+        return { message: 'Ruta actualizada', data}
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
-        return this.routeService.delete(id)
+    async remove(@Param('id') id: number) {
+        const data = await this.routeService.delete(id)
+        return { message: 'Ruta eliminada', data}
     }
 }

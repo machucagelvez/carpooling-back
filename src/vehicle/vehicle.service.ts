@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateVehicleDto } from './dtos/create-vehicle.dto';
@@ -17,25 +17,27 @@ export class VehicleService {
         return await this.vehicleRepository.find()
     }
 
-    async findOne(id: number) {
+    async getOne(id: number) {
         const vehicle = await this.vehicleRepository.findOne(id)
         if (!vehicle) throw new NotFoundException('El vehículo buscado no existe')
         return vehicle
     }
 
     async create(dto: CreateVehicleDto) {
-        const vehicle = await this.vehicleRepository.create(dto as any)
-        return await this.vehicleRepository.save(vehicle)
+        const vehicleExist = await this.vehicleRepository.findOne({plate: dto.plate})
+        if (vehicleExist) throw new BadRequestException(`Ya existe un vehículo con placa: ${dto.plate}`)
+        const newVehicle = await this.vehicleRepository.create(dto as any)
+        return await this.vehicleRepository.save(newVehicle)
     }
 
     async update(id: number, dto: EditVehicleDto) {
-        const vehicle = await this.vehicleRepository.findOne(id)
-        if(!vehicle) throw new NotFoundException('El usuario no existe')
+        const vehicle = await this.getOne(id)
         const editedVehicle = Object.assign(vehicle, dto)
-        return await this.vehicleRepository.save(vehicle)
+        return await this.vehicleRepository.save(editedVehicle)
     }
 
-    delete(id: number) {
-        return this.vehicleRepository.delete(id)
+    async delete(id: number) {
+        await this.getOne(id)
+        return await this.vehicleRepository.delete(id)
     }
 }

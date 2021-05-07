@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -17,25 +17,31 @@ export class UserService {
         return await this.userRepository.find()
     }
 
-    async findOne(id: number) {
+    async getOne(id: number) {
         const user = await this.userRepository.findOne(id)
-        if (!user) throw new NotFoundException('El usuario buscado no existe')
+        if (!user) throw new NotFoundException('El usuario no existe')
         return user
     }
 
     async create(dto: CreateUserDto) {
-        const user = await this.userRepository.create(dto as any)
-        return await this.userRepository.save(user)
+        const userExist = await this.userRepository.findOne({email: dto.email})
+        if (userExist) throw new BadRequestException(`Ya existe un usuario con email: ${dto.email}`)
+        const newUser = await this.userRepository.create(dto)
+        const user = await this.userRepository.save(newUser)
+        delete user.password
+        return user
     }
 
     async update(id: number, dto: EditUserDto) {
-        const user = await this.userRepository.findOne(id)
-        if(!user) throw new NotFoundException('El usuario no existe')
+        const user = await this.getOne(id)
         const editedUser = Object.assign(user, dto)
-        return await this.userRepository.save(user)
+        const edited = await this.userRepository.save(editedUser)
+        delete edited.password
+        return edited
     }
 
-    delete(id: number) {
-        return this.userRepository.delete(id)
+    async delete(id: number) {
+        await this.getOne(id)
+        return await this.userRepository.delete(id)
     }
 }

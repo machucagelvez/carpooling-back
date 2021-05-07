@@ -17,25 +17,25 @@ export class UserjourneyService {
         return await this.userjourneyRepository.find()
     }
 
-    async findOne(id: number) {
+    async getOne(id: number) {
         const userjourney = await this.userjourneyRepository.findOne(id)
         if (!userjourney) throw new NotFoundException('El ID buscado no existe')
         return userjourney
     }
 
     async create(dto: CreateUserjourneyDto) {
-        const userjourney = await this.userjourneyRepository.create(dto as any)
+        const userjourney = await this.userjourneyRepository.create(dto)
         return await this.userjourneyRepository.save(userjourney)
     }
 
     async update(id: number, dto: EditUserjourneyDto) {
-        const userjourney = await this.userjourneyRepository.findOne(id)
-        if(!userjourney) throw new NotFoundException('El ID no existe')
+        const userjourney = await this.getOne(id)
         const editedUserjourney = Object.assign(userjourney, dto)
-        return await this.userjourneyRepository.save(userjourney)
+        return await this.userjourneyRepository.save(editedUserjourney)
     }
 
-    delete(id: number) {
-        return this.userjourneyRepository.delete(id)
+    async delete(id: number) {
+        await this.getOne(id)
+        return await this.userjourneyRepository.delete(id)
     }
 }

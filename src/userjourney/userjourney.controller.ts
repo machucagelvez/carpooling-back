@@ -11,29 +11,30 @@ export class UserjourneyController {
     @Get()
     async findAll() {
         const data = await this.userjourneyService.findAll()
-        return {
-            message: 'Viajes mostrados',
-            data
-        }
+        return { data }
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
-        return this.userjourneyService.findOne(id)
+    async getOne(@Param('id', ParseIntPipe) id: number) {
+        const data = await this.userjourneyService.getOne(id)
+        return { data }
     }
 
     @Post()
-    create(@Body() dto: CreateUserjourneyDto) {
-        return this.userjourneyService.create(dto)
+    async create(@Body() dto: CreateUserjourneyDto) {
+        const data = await this.userjourneyService.create(dto)
+        return { message: 'UserJourney creado', data}
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() dto: EditUserjourneyDto) {
-        return this.userjourneyService.update(id, dto)
+    async update(@Param('id') id: number, @Body() dto: EditUserjourneyDto) {
+        const data = await this.userjourneyService.update(id, dto)
+        return { message: 'UserJourney actualizado', data}
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
-        return this.userjourneyService.delete(id)
+    async remove(@Param('id') id: number) {
+        const data = await this.userjourneyService.delete(id)
+        return { message: 'UserJourney eliminado', data}
     }
 }

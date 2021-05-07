@@ -11,32 +11,33 @@ export class UserController {
     @Get()
     async findAll() {
         const data = await this.userService.findAll()
-        return {
-            message: 'Usuarios mostrados',
-            data
-        }
+        return { data }
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
-        return this.userService.findOne(id)
+    async getOne(@Param('id', ParseIntPipe) id: number) {
+        const data = await this.userService.getOne(id)
+        return { data }
     }
 
     @Post()
-    create(@Body() dto: CreateUserDto) {
-        return this.userService.create(dto)
+    async create(@Body() dto: CreateUserDto) {
+        const data = await this.userService.create(dto)
+        return { message: 'Usuario creado', data}
     }
 
     @Put(':id')
-    update(
+    async update(
         @Param('id') id: number,
         @Body() dto: EditUserDto
         ) {
-            return this.userService.update(id, dto)
+            const data = await this.userService.update(id, dto)
+            return { message: 'Usuario editado', data}
         }
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
-        return this.userService.delete(id)
+    async remove(@Param('id') id: number) {
+        const data = await this.userService.delete(id)
+        return { message: 'Usuario eliminado', data}
     }
 }

@@ -11,29 +11,30 @@ export class JourneyController {
     @Get()
     async findAll() {
         const data = await this.journeyService.findAll()
-        return {
-            message: 'Viajes mostrados',
-            data
-        }
+        return { data }
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
-        return this.journeyService.findOne(id)
+    async getOne(@Param('id', ParseIntPipe) id: number) {
+        const data = this.journeyService.getOne(id)
+        return { data }
     }
 
     @Post()
-    create(@Body() dto: CreateJourneyDto) {
-        return this.journeyService.create(dto)
+    async create(@Body() dto: CreateJourneyDto) {
+        const data = await this.journeyService.create(dto)
+        return { message: 'Viaje creado', data}
     }
 
     @Put(':id')
-    update(@Param('id') id: number, @Body() dto: EditJourneyDto) {
-        return this.journeyService.update(id, dto)
+    async update(@Param('id') id: number, @Body() dto: EditJourneyDto) {
+        const data = await this.journeyService.update(id, dto)
+        return { message: 'Viaje editado', data}
     }
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
-        return this.journeyService.delete(id)
+    async remove(@Param('id') id: number) {
+        const data = await this.journeyService.delete(id)
+        return { message: 'Viaje eliminado', data}
     }
 }

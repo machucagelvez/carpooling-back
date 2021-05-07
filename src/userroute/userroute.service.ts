@@ -17,7 +17,7 @@ export class UserrouteService {
         return await this.userrouteRepository.find()
     }
 
-    async findOne(id: number) {
+    async getOne(id: number) {
         const userroute = await this.userrouteRepository.findOne(id)
         if (!userroute) throw new NotFoundException('El ID buscado no existe')
         return userroute
@@ -29,13 +29,13 @@ export class UserrouteService {
     }
 
     async update(id: number, dto: EditUserrouteDto) {
-        const userroute = await this.userrouteRepository.findOne(id)
-        if(!userroute) throw new NotFoundException('El ID no existe')
+        const userroute = await this.getOne(id)
         const editedUserroute = Object.assign(userroute, dto)
-        return await this.userrouteRepository.save(userroute)
+        return await this.userrouteRepository.save(editedUserroute)
     }
 
-    delete(id: number) {
-        return this.userrouteRepository.delete(id)
+    async delete(id: number) {
+        await this.getOne(id)
+        return await this.userrouteRepository.delete(id)
     }
 }

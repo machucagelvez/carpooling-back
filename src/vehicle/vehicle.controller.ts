@@ -11,32 +11,31 @@ export class VehicleController {
     @Get()
     async findAll() {
         const data = await this.vehicleService.findAll()
-        return {
-            message: 'Vehículos mostrados',
-            data
-        }
+        return { data }
     }
 
     @Get(':id')
-    findOne(@Param('id', ParseIntPipe) id: number) {
-        return this.vehicleService.findOne(id)
+    async getOne(@Param('id', ParseIntPipe) id: number) {
+        const data = await this.vehicleService.getOne(id)
+        return { data }
     }
 
     @Post()
-    create(@Body() dto: CreateVehicleDto) {
-        return this.vehicleService.create(dto)
+    async create(@Body() dto: CreateVehicleDto) {
+        const data = await this.vehicleService.create(dto)
+        return { message: 'Vehículo creado', data}
     }
 
     @Put(':id')
-    update(
-        @Param('id') id: number,
-        @Body() dto: EditVehicleDto
-        ) {
-            return this.vehicleService.update(id, dto)
+    async update(@Param('id') id: number, @Body() dto: EditVehicleDto) {
+            const data = await this.vehicleService.update(id, dto)
+            return { message: 'Vehículo actualizado', data}
         }
+        
 
     @Delete(':id')
-    remove(@Param('id') id: number) {
-        return this.vehicleService.delete(id)
+    async remove(@Param('id') id: number) {
+        const data = await this.vehicleService.delete(id)
+        return { message: 'Vehículo eliminado', data}
     }
 }
