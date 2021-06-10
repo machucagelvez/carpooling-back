@@ -10,6 +10,7 @@ import { UserrouteModule } from './userroute/userroute.module';
 import { VehicleModule } from './vehicle/vehicle.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_PORT, DATABASE_USERNAME } from './config/constants';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
     imports: [
@@ -36,7 +37,8 @@ import { DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_PORT, DATABAS
         JourneyModule,
         UserjourneyModule,
         UserrouteModule,
-        VehicleModule
+        VehicleModule,
+        AuthModule
         ],
     controllers: [AppController],
     providers: [AppService],

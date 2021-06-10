@@ -7,18 +7,21 @@ export class Route{
     @PrimaryGeneratedColumn()
     routeId: number
     
-    @Column({type: "varchar", length: 50})
+    @Column({type: "varchar", length: 30})
     schedule: string;
+
+    @Column({type: "varchar", length: 30})
+    time: string;
 
     @Column({type: "varchar", length: 50})
     routeName: string;
 
     @Column({type: "int"})
     cost: number;
-
+    
     @Column({type: "varchar", length: 50})
     routeOrigin: string;
-
+   
     @Column({type: "varchar", length: 50})
     routeDestination: string;
 

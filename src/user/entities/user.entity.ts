@@ -10,14 +10,14 @@ export class User{
     @Column({type: "varchar", length: 30})
     user: string;
 
-    @Column({type: "varchar", length: 30, select: false})
+    @Column({type: "varchar", length: 128, select: false})
     password: string;
 
     @Column({type: "varchar", length: 50})
     email: string;
 
-    @Column({type: "varchar", length: 20})
-    phone: string;
+    @Column({type: "int"})
+    phone: number;
 
     @Column({type: "bool", default: true})
     userType: boolean;
@@ -25,7 +25,7 @@ export class User{
     @Column({type: "varchar", length: 100})
     waLink: string;
 
-    @Column({type: "bool"})
+    @Column({type: "bool", default: true})
     rol: boolean;
 
     @Column({type: "int"})

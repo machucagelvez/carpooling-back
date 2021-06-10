@@ -1,5 +1,5 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { EnumToString } from "src/helpers/enumToString";
+import { EnumToString } from "src/common/helpers/enumToString";
 import { VehicleType } from "../enums/vehicleType.enum";
 
 

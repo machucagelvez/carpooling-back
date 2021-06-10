@@ -5,6 +5,11 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { EditUserDto } from './dtos/edit-user.dto';
 import { User } from './entities/user.entity';
 
+export interface UserFindOne {
+    id?: number
+    email?: string
+}
+
 @Injectable()
 export class UserService {
 
@@ -43,5 +48,13 @@ export class UserService {
     async delete(id: number) {
         await this.getOne(id)
         return await this.userRepository.delete(id)
+    }
+
+    async findUser(data: UserFindOne) {
+        return await this.userRepository
+        .createQueryBuilder('user')
+        .where(data)
+        .addSelect('user.password')
+        .getOne()
     }
 }

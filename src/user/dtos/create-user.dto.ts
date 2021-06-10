@@ -1,4 +1,4 @@
-import { IsBoolean, IsEmail, IsNumber, IsNumberString, IsString } from "class-validator";
+import { IsBoolean, IsEmail, IsNumber, IsNumberString, IsOptional, IsString } from "class-validator";
 
 export class CreateUserDto {
     
@@ -11,18 +11,22 @@ export class CreateUserDto {
     @IsEmail()
     email: string;
 
-    @IsNumberString()
-    phone: string;
+    @IsNumber()
+    phone: number;
 
+    @IsOptional()
     @IsBoolean()
     userType: boolean;
 
+    @IsOptional()
     @IsString()
     waLink: string;
 
+    @IsOptional()
     @IsBoolean()
     rol: boolean;
 
+    @IsOptional()
     @IsNumber()
     notificationId: number;
 }
