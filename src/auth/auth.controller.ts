@@ -34,4 +34,14 @@ export class AuthController {
             user
         }
     }
+
+    @UseGuards(JwtAuthGuard)
+    @Get('refresh')
+    refreshToken(@User() user: UserEntity) {
+        const data = this.authService.login(user);
+        return {
+        message: 'Refresh exitoso',
+        data,
+        };
+    }
 }
