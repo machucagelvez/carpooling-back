@@ -5,14 +5,17 @@ import { VehicleType } from "../enums/vehicleType.enum";
 
 export class CreateVehicleDto{
 
+    @IsOptional()
     @IsEnum(VehicleType, {
         message: `Opción inválida. Las opciones correctas son: ${EnumToString(VehicleType)}`
     })
     vehicleType: VehicleType
-
-    @IsOptional()
+    
     @IsString()
     plate: string
+
+    @IsString()
+    brand: string
 
     @IsNumber()
     userId: number
