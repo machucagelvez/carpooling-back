@@ -24,7 +24,7 @@ export class UserrouteService {
     }
 
     async create(dto: CreateUserrouteDto) {
-        const userroute = await this.userrouteRepository.create(dto as any)
+        const userroute = this.userrouteRepository.create(dto)
         return await this.userrouteRepository.save(userroute)
     }
 

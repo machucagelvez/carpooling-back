@@ -16,6 +16,7 @@ export class UserController {
         return { data }
     }
 
+    //@UseGuards(JwtAuthGuard)
     @Get(':id')
     async getOne(@Param('id', ParseIntPipe) id: number) {
         const data = await this.userService.getOne(id)

@@ -1,15 +1,15 @@
 import { IsEnum, IsNumber, IsOptional, IsString } from "class-validator";
-import { EnumToString } from "src/common/helpers/enumToString";
-import { VehicleType } from "../enums/vehicleType.enum";
+//import { EnumToString } from "src/common/helpers/enumToString";
+//import { VehicleType } from "../enums/vehicle-type.enum";
 
 
 export class CreateVehicleDto{
 
     @IsOptional()
-    @IsEnum(VehicleType, {
-        message: `Opción inválida. Las opciones correctas son: ${EnumToString(VehicleType)}`
-    })
-    vehicleType: VehicleType
+    // @IsEnum(VehicleType, {
+    //     message: `Opción inválida. Las opciones correctas son: ${EnumToString(VehicleType)}`
+    // })
+    vehicleType: string
     
     @IsString()
     plate: string

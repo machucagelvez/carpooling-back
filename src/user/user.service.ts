@@ -31,7 +31,7 @@ export class UserService {
     async create(dto: CreateUserDto) {
         const userExist = await this.userRepository.findOne({email: dto.email})
         if (userExist) throw new BadRequestException(`Ya existe un usuario con email: ${dto.email}`)
-        const newUser = await this.userRepository.create(dto)
+        const newUser = this.userRepository.create(dto)
         const user = await this.userRepository.save(newUser)
         delete user.password
         return user

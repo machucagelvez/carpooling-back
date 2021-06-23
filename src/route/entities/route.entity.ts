@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Vehicle } from "src/vehicle/entities/vehicle.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('route')
@@ -33,4 +34,7 @@ export class Route{
 
     @Column({type: "varchar", length: 30})
     carpooler: string;
+
+    @ManyToOne(() => Vehicle, vehicle => vehicle.route)
+    vehicle: Vehicle
 }

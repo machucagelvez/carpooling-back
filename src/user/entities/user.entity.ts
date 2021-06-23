@@ -1,5 +1,6 @@
 import { hash } from "bcryptjs";
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Vehicle } from "src/vehicle/entities/vehicle.entity";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('user')
 export class User{
@@ -33,6 +34,9 @@ export class User{
 
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;
+
+    @OneToMany(() => Vehicle, vehicle => vehicle.user, {eager: true})
+    vehicle: Vehicle[];
 
     @BeforeInsert()
     @BeforeUpdate()

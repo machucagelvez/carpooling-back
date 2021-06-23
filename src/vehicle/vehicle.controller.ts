@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateVehicleDto } from './dtos/create-vehicle.dto';
 import { EditVehicleDto } from './dtos/edit-vehicle.dto';
 import { VehicleService } from './vehicle.service';
@@ -14,6 +15,7 @@ export class VehicleController {
         return { data }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async getOne(@Param('id', ParseIntPipe) id: number) {
         const data = await this.vehicleService.getOne(id)

@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Route } from "src/route/entities/route.entity";
+import { User } from "src/user/entities/user.entity";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('vehicle')
@@ -16,6 +18,9 @@ export class Vehicle{
     @Column({type: "varchar", length: 30})
     brand: string
 
-    @Column({type: "int"})
-    userId: number
+    @OneToMany(() => Route, route => route.vehicle, {eager: true})
+    route: Route[]
+
+    @ManyToOne(() => User, user => user.vehicle)
+    user: User
 }

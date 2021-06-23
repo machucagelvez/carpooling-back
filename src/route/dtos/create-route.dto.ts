@@ -1,4 +1,4 @@
-import { IsOptional, IsString, Min } from "class-validator";
+import { IsNumber, IsString, Min } from "class-validator";
 
 
 export class CreateRouteDto{
@@ -24,11 +24,12 @@ export class CreateRouteDto{
     @Min(0)
     spaces: number;
 
-    @IsOptional()
     @Min(0)
     emptySpaces: number;
 
-    @IsOptional()
     @IsString()
     carpooler: string;
+
+    @IsNumber()
+    vehicleId: number
 }

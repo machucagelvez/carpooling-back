@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Vehicle } from 'src/vehicle/entities/vehicle.entity';
 import { Repository } from 'typeorm';
 import { CreateRouteDto } from './dtos/create-route.dto';
 import { EditRouteDto } from './dtos/edit-route.dto';
@@ -24,7 +25,10 @@ export class RouteService {
     }
 
     async create(dto: CreateRouteDto) {
-        const route = await this.routeRepository.create(dto)
+        const route = this.routeRepository.create(dto)
+        const vehicle = new Vehicle 
+        vehicle.vehicleId = dto.vehicleId
+        route.vehicle = vehicle
         return await this.routeRepository.save(route)
     }
 
