@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/user/entities/user.entity';
 import { Vehicle } from 'src/vehicle/entities/vehicle.entity';
 import { Repository } from 'typeorm';
 import { CreateRouteDto } from './dtos/create-route.dto';
@@ -19,7 +20,7 @@ export class RouteService {
     }
 
     async getOne(id: number) {
-        const route = await this.routeRepository.findOne(id)
+        const route = await this.routeRepository.findOne(id, {relations: ['users']})
         if (!route) throw new NotFoundException('La ruta buscada no existe')
         return route
     }
@@ -34,6 +35,11 @@ export class RouteService {
 
     async update(id: number, dto: EditRouteDto) {
         const route = await this.getOne(id)
+        if(dto.userId) {
+            let user1 = new User
+            user1.userId = dto.userId
+            route.users.push(user1)
+        }
         const editedRoute = Object.assign(route, dto)
         return await this.routeRepository.save(editedRoute)
     }

@@ -1,5 +1,6 @@
+import { User } from "src/user/entities/user.entity";
 import { Vehicle } from "src/vehicle/entities/vehicle.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('route')
@@ -35,6 +36,12 @@ export class Route{
     @Column({type: "varchar", length: 30})
     carpooler: string;
 
+    @Column({type: "longtext"})
+    createdRoute: JSON
+
     @ManyToOne(() => Vehicle, vehicle => vehicle.route)
     vehicle: Vehicle
+
+    @ManyToMany(() => User, user => user.routes)
+    users: User[];
 }

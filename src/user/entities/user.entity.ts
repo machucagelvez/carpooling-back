@@ -1,6 +1,7 @@
 import { hash } from "bcryptjs";
+import { Route } from "src/route/entities/route.entity";
 import { Vehicle } from "src/vehicle/entities/vehicle.entity";
-import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('user')
 export class User{
@@ -37,6 +38,10 @@ export class User{
 
     @OneToMany(() => Vehicle, vehicle => vehicle.user, {eager: true})
     vehicle: Vehicle[];
+
+    @ManyToMany(() => Route, route => route.users)
+    @JoinTable()
+    routes: Route[];
 
     @BeforeInsert()
     @BeforeUpdate()

@@ -1,4 +1,4 @@
-import { IsNumber, IsString, Min } from "class-validator";
+import { IsDefined, IsJSON, IsNumber, IsString, Min } from "class-validator";
 
 
 export class CreateRouteDto{
@@ -29,6 +29,9 @@ export class CreateRouteDto{
 
     @IsString()
     carpooler: string;
+
+    @IsJSON()
+    createdRoute: JSON
 
     @IsNumber()
     vehicleId: number
