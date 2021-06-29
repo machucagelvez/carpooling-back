@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotAcceptableException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Vehicle } from 'src/vehicle/entities/vehicle.entity';
@@ -35,6 +35,11 @@ export class RouteService {
 
     async update(id: number, dto: EditRouteDto) {
         const route = await this.getOne(id)
+        if(route.emptySpaces===0) {
+            throw new NotAcceptableException('No hay espacios disponibles')
+        }else{
+            route.emptySpaces = route.emptySpaces - 1
+        }        
         if(dto.userId) {
             let user1 = new User
             user1.userId = dto.userId

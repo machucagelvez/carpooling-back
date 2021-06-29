@@ -23,7 +23,7 @@ export class UserService {
     }
 
     async getOne(id: number) {
-        const user = await this.userRepository.findOne(id)
+        const user = await this.userRepository.findOne(id, {relations: ['routes']})
         if (!user) throw new NotFoundException('El usuario no existe')
         return user
     }
