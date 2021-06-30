@@ -39,7 +39,7 @@ export class Route{
     @Column({type: "longtext"})
     createdRoute: JSON
 
-    @ManyToOne(() => Vehicle, vehicle => vehicle.route)
+    @ManyToOne(() => Vehicle, vehicle => vehicle.route, {eager: true})
     vehicle: Vehicle
 
     @ManyToMany(() => User, user => user.routes)

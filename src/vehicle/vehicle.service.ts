@@ -19,7 +19,7 @@ export class VehicleService {
     }
 
     async getOne(id: number) {
-        const vehicle = await this.vehicleRepository.findOne(id, {relations: ['route']})
+        const vehicle = await this.vehicleRepository.findOne(id, {relations: ['route', 'user']})
         if (!vehicle) throw new NotFoundException('El vehículo buscado no existe')
         return vehicle
     }

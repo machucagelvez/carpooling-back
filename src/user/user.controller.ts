@@ -9,14 +9,14 @@ export class UserController {
 
     constructor(private readonly userService: UserService) {}
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
         const data = await this.userService.findAll()
         return { data }
     }
 
-    //@UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async getOne(@Param('id', ParseIntPipe) id: number) {
         const data = await this.userService.getOne(id)
@@ -29,15 +29,17 @@ export class UserController {
         return { message: 'Usuario creado', data}
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     async update(
         @Param('id') id: number,
         @Body() dto: EditUserDto
-        ) {
-            const data = await this.userService.update(id, dto)
-            return { message: 'Usuario editado', data}
-        }
+    ) {
+        const data = await this.userService.update(id, dto)
+        return { message: 'Usuario editado', data}
+    }
 
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async remove(@Param('id') id: number) {
         const data = await this.userService.delete(id)

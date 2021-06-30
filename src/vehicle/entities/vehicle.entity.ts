@@ -18,9 +18,9 @@ export class Vehicle{
     @Column({type: "varchar", length: 30})
     brand: string
 
-    @OneToMany(() => Route, route => route.vehicle, {eager: true})
+    @OneToMany(() => Route, route => route.vehicle)
     route: Route[]
 
-    @ManyToOne(() => User, user => user.vehicle)
+    @ManyToOne(() => User, user => user.vehicle, {eager: true})
     user: User
 }

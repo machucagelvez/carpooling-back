@@ -9,6 +9,7 @@ export class VehicleController {
 
     constructor(private readonly vehicleService: VehicleService) {}
 
+    @UseGuards(JwtAuthGuard)
     @Get()
     async findAll() {
         const data = await this.vehicleService.findAll()
@@ -22,19 +23,21 @@ export class VehicleController {
         return { data }
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     async create(@Body() dto: CreateVehicleDto) {
         const data = await this.vehicleService.create(dto)
         return { message: 'Vehículo creado', data}
     }
 
+    @UseGuards(JwtAuthGuard)
     @Put(':id')
     async update(@Param('id') id: number, @Body() dto: EditVehicleDto) {
             const data = await this.vehicleService.update(id, dto)
             return { message: 'Vehículo actualizado', data}
-        }
+    }
         
-
+    @UseGuards(JwtAuthGuard)
     @Delete(':id')
     async remove(@Param('id') id: number) {
         const data = await this.vehicleService.delete(id)

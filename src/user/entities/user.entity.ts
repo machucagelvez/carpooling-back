@@ -18,7 +18,7 @@ export class User{
     @Column({type: "varchar", length: 50})
     email: string;
 
-    @Column({type: "int"})
+    @Column({type: "bigint"})
     phone: number;
 
     @Column({type: "bool", default: true})
@@ -36,7 +36,7 @@ export class User{
     @CreateDateColumn({type: 'timestamp'})
     createdAt: Date;
 
-    @OneToMany(() => Vehicle, vehicle => vehicle.user, {eager: true})
+    @OneToMany(() => Vehicle, vehicle => vehicle.user)
     vehicle: Vehicle[];
 
     @ManyToMany(() => Route, route => route.users)

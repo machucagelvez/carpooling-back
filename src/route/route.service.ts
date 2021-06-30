@@ -20,7 +20,7 @@ export class RouteService {
     }
 
     async getOne(id: number) {
-        const route = await this.routeRepository.findOne(id, {relations: ['users']})
+        const route = await this.routeRepository.findOne(id, {relations: ['users', 'vehicle']})
         if (!route) throw new NotFoundException('La ruta buscada no existe')
         return route
     }
